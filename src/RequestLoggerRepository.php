@@ -212,12 +212,12 @@ class RequestLoggerRepository implements RepositoryInterface
             'headers' => $request->headers->all(),
             'params' => [
                 'get' => $_GET,
-                'post' => array_except($_POST, $except),
+                'post' => Arr::except($_POST, $except),
                 'files' => $_FILES,
                 'raw' => blank($except) ? $request->getContent() : transform($request->getContent(), function ($rawContent) use ($except) {
                     mb_parse_str($rawContent, $content);
 
-                    return http_build_query(array_except($content, $except));
+                    return http_build_query(Arr::except($content, $except));
                 })
             ],
             'cookies' => $request->cookie()
