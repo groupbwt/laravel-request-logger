@@ -401,9 +401,9 @@ class RequestLoggerTest extends \Orchestra\Testbench\TestCase
         $this->assertArrayHasKey('params', $data['request']);
         $this->assertInternalType('array', $data['request']['params']);
         $this->assertArrayHasKey('post', $data['request']['params']);
-        $this->assertSame(array_except($raw, ['password']), $data['request']['params']['post']);
+        $this->assertSame(Arr::except($raw, ['password']), $data['request']['params']['post']);
         $this->assertArrayHasKey('raw', $data['request']['params']);
-        $this->assertSame(http_build_query(array_except($raw, ['password'])), $data['request']['params']['raw']);
+        $this->assertSame(http_build_query(Arr::except($raw, ['password'])), $data['request']['params']['raw']);
     }
 
     /**
