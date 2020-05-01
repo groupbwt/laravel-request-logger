@@ -93,7 +93,7 @@ class RequestLoggerRepository implements RepositoryInterface
         if (defined('LARAVEL_START')) {
             $this->startTime = LARAVEL_START;
         } else {
-            $this->startTime = array_get($_SERVER, 'REQUEST_TIME_FLOAT', microtime(true));
+            $this->startTime = Arr::get($_SERVER, 'REQUEST_TIME_FLOAT', microtime(true));
         }
     }
 
