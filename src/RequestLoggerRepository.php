@@ -161,7 +161,8 @@ class RequestLoggerRepository implements RepositoryInterface
      */
     public function process(Request $request, Response $response): RepositoryInterface
     {
-        $this->data['user_id'] = optional($request->user())->getKey();
+        $user = $request->user() ?: auth()->user();
+        $this->data['user_id'] = optional($user)->getKey();
         $this->processRequest($request)
             ->processResponse($response);
         $this->data['duration'] = microtime(true) - $this->startTime;
