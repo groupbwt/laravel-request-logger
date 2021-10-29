@@ -14,7 +14,7 @@ class StoreManager extends Manager
      */
     public function getDefaultDriver()
     {
-        return $this->app['config']['request-logger.default'];
+        return $this->config['request-logger.default'];
     }
 
     /**
@@ -26,7 +26,7 @@ class StoreManager extends Manager
      */
     public function setDefaultDriver(string $name)
     {
-        $this->app['config']['request-logger.default'] = $name;
+        $this->config['request-logger.default'] = $name;
     }
 
     /**
@@ -36,9 +36,9 @@ class StoreManager extends Manager
      */
     protected function createDatabaseDriver()
     {
-        $table = $this->app['config']['request-logger.stores.database.table'];
-        $connection = $this->app['config']['request-logger.stores.database.connection'];
+        $table = $this->config['request-logger.stores.database.table'];
+        $connection = $this->config['request-logger.stores.database.connection'];
 
-        return new DatabaseStore($this->app['db']->connection($connection), $table);
+        return new DatabaseStore($this->container['db']->connection($connection), $table);
     }
 }
