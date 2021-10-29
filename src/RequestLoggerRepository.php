@@ -263,6 +263,6 @@ class RequestLoggerRepository implements RepositoryInterface
     {
         $config = config('request-logger');
 
-        return $config['enabled'] instanceof \Closure ? app()->call($config['enabled']) : $config['enabled'];
+        return $config['enabled'] instanceof \Closure ? app()->call($config['enabled']) : boolval($config['enabled']);
     }
 }
