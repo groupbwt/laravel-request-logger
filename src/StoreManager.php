@@ -3,6 +3,7 @@
 namespace BwtTeam\LaravelRequestLogger;
 
 use BwtTeam\LaravelRequestLogger\Stores\Database as DatabaseStore;
+use BwtTeam\LaravelRequestLogger\Stores\StoreInterface;
 use Illuminate\Support\Manager;
 
 class StoreManager extends Manager
@@ -12,9 +13,9 @@ class StoreManager extends Manager
      *
      * @return string
      */
-    public function getDefaultDriver()
+    public function getDefaultDriver(): string
     {
-        return $this->app['config']['request-logger.default'];
+        return $this->container['config']['request-logger.default'];
     }
 
     /**
@@ -24,21 +25,21 @@ class StoreManager extends Manager
      *
      * @return void
      */
-    public function setDefaultDriver(string $name)
+    public function setDefaultDriver(string $name): void
     {
-        $this->app['config']['request-logger.default'] = $name;
+        $this->container['config']['request-logger.default'] = $name;
     }
 
     /**
      * Create an instance of the database store driver.
      *
-     * @return \BwtTeam\LaravelRequestLogger\Stores\StoreInterface
+     * @return StoreInterface
      */
-    protected function createDatabaseDriver()
+    protected function createDatabaseDriver(): StoreInterface
     {
-        $table = $this->app['config']['request-logger.stores.database.table'];
-        $connection = $this->app['config']['request-logger.stores.database.connection'];
+        $table = $this->container['config']['request-logger.stores.database.table'];
+        $connection = $this->container['config']['request-logger.stores.database.connection'];
 
-        return new DatabaseStore($this->app['db']->connection($connection), $table);
+        return new DatabaseStore($this->container['db']->connection($connection), $table);
     }
 }
